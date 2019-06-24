@@ -1,0 +1,117 @@
+\documentclass[b5paper,10pt,UTF8]{ctexart}
+
+\usepackage[left=1.27cm,right=1.27cm,top=1.52cm,bottom=1.27cm]{geometry}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{array}
+\usepackage{fancyhdr}
+\usepackage{caption}
+\usepackage{multirow}
+
+\pagestyle{fancy}
+
+\lhead{}
+\chead{单边z变换}
+\rhead{}
+\lfoot{\copyright Frimaire 2019}
+\cfoot{}
+\rfoot{CC BY}
+
+\renewcommand\arraystretch{1}
+\newcommand{\dqcoll}[1]{\multicolumn{2}{|>{\(\displaystyle{}}c<{\)}||}{#1}}
+\newcommand{\dqcolr}[1]{\multicolumn{2}{>{\(\displaystyle{}}c<{\)}|}{#1}}
+\newcommand{\tmath}[1]{\(\displaystyle{} #1\)}
+\setlength{\textfloatsep}{1pt}
+
+\begin{document}
+
+\begin{table}
+  \centering
+  \begin{tabular}{|>{\centering\(\displaystyle{}}p{0.20\textwidth}<{\)}|>{\centering\(\displaystyle{}}p{0.23\textwidth}<{\)}||>{\centering\(\displaystyle{}}p{0.18\textwidth}<{\)}|>{\centering\(\displaystyle{}}p{0.30\textwidth}<{\)}|}
+    %Command "centering" will redefine the doublebackslash, which makes command "arraybackslash" essential.
+    \hline
+    f[n] & F(z) & f[n] & F(z) \arraybackslash\\
+    \hline
+    \frac{1}{2\pi{}j}\oint{}F(z)z^{n - 1}dz & \sum_{n = -\infty}^{+\infty}f[n]z^{-n} & \delta{}[n] & 1 \arraybackslash\\
+    \hline
+    af_1[n] + bf_2[n] & aF_1(z) + bF_2(z) & u[n] & \frac{1}{1 - z^{-1}} \arraybackslash\\
+    \hline
+    f[n - 1] & z ^ {-1} F(z) + f[-1] & a^nu[n] & \frac{1}{1 - az^{-1}} \arraybackslash\\
+    \hline
+    f[n + 1] & z F(z) - z f[0] & na^nu[n] & \frac{az^{-1}}{(1 - az^{-1})^2} \arraybackslash\\
+    \hline
+    z_0^n f[n] & F(\frac{z}{z_0}) & n^2a^nu[n] & \frac{az^{-1}(1 + az^{-1})}{(1 - az^{-1})^3} \arraybackslash\\
+    \hline
+    \begin{cases}
+      f[m] & n = km \\
+      0 & n \ne km
+    \end{cases} & F(z^k) & C_{n + m - 1}^{m - 1}a^{n}u[n] & \frac{1}{(1 - az^{-1})^m} \arraybackslash\\
+    \hline
+    f[n] - f[n - 1] & (1 - z^{-1})F(z) - f[-1] & \cos{}(\omega_0n)u[k] & \frac{1 - \cos(\omega_0)z^{-1}}{1 - 2\cos(\omega_0)z^{-1} + z^{-2}} \arraybackslash\\
+    \hline
+    nf[n] & -z\frac{\mathrm{d}}{\mathrm{d}z}F(z) & \sin{}(\omega_0n)u[k] & \frac{\sin(\omega_0)z^{-1}}{1 - 2\cos(\omega_0)z^{-1} + z^{-2}} \arraybackslash\\
+    \hline
+    f_1[n] * f_2[n] & F_1(z)F_2(z) & a^n\cos{}(\omega_0n)u[k] & \frac{1 - a\cos(\omega_0)z^{-1}}{1 - 2a\cos(\omega_0)z^{-1} + a^2z^{-2}} \arraybackslash\\
+    \hline
+    \sum_{k = 0}^{n}x[k] & \frac{1}{1 - z^{-1}}F(z) & a^n\sin{}(\omega_0n)u[k] & \frac{a\sin(\omega_0)z^{-1}}{1 - 2a\cos(\omega_0)z^{-1} + a^2z^{-2}} \arraybackslash\\
+    \hline
+    \dqcoll{f[0] = \lim_{z\to\infty}F(z)} & \dqcolr{f[+\infty] = \lim_{z\to{}1}(1 - z^{-1})F(z)} \arraybackslash\\
+    \hline
+  \end{tabular}
+\end{table}
+
+\paragraph{真分式的部分分式展开}
+
+\begin{displaymath}
+F(w) = \frac{b_{n - 1}s^{n - 1}+\cdots+b_1s+b_0}{(1 - \rho_1w)^{\sigma_1}(1 - \rho_2w)^{\sigma_2}\cdots(1 - \rho_rw)^{\sigma_r}} = \sum_{n = 1}^{r}\sum_{m = 1}^{\sigma_n}\frac{B_{nm}}{(1 - \rho_nw)^m}
+\end{displaymath}
+
+\begin{displaymath}
+  B_{nm} = \frac{1}{(\sigma_n - m)!}(-\rho_n)^{-(\sigma_n - m)}\cdot\frac{\mathrm{d}^{\sigma_n - m}}{\mathrm{d}w^{\sigma_n - m}}((1 - \rho_nw)^{\sigma_n}F(w)|_{w = \rho_n^{-1}}
+\end{displaymath}
+
+\paragraph{朱利判据}
+
+\begin{displaymath}
+  D(w) = a_nw^n + a_{n - 1}w^{n - 1} + \cdots + a_2w^2 + a_1w + a_0
+\end{displaymath}
+
+\begin{table}
+  \centering
+    \begin{tabular}{|>{\(\displaystyle{}}c<{\)}|>{\(\displaystyle{}}c<{\)}|>{\(\displaystyle{}}c<{\)}|>{\(\displaystyle{}}c<{\)}|>{\(\displaystyle{}}c<{\)}|>{\(\displaystyle{}}c<{\)}|>{\(\displaystyle{}}c<{\)}|}
+      \hline
+      a_n & a_{n - 1} & a_{n - 2} & \cdots & a_2 & a_1 & a_0 \arraybackslash\\
+      \hline
+      a_0 & a_1 & a_2 & \cdots & a_{n - 2} & a_{n - 1} & a_{n} \arraybackslash\\
+      \hline
+      b_{n - 1} = \begin{vmatrix}
+                  a_n & a_0 \\
+                  a_0 & a_n
+                \end{vmatrix} & b_{n - 2} = \begin{vmatrix}
+                  a_n & a_1 \\
+                  a_0 & a_{n - 1}
+                \end{vmatrix} & b_{n - 3} & \cdots & b_1 & b_0 & \arraybackslash\\
+      \hline
+      b_0 & b_1 & b_2 & \cdots & b_{n - 2} & b_{n  - 1} & \arraybackslash\\
+      \hline
+      c_{n - 1} = \begin{vmatrix}
+        b_{n - 1} & b_0 \\
+        b_{0} & b_{n - 1}
+                \end{vmatrix} & c_{n - 2} = \begin{vmatrix}
+        b_{n - 1} & b_1 \\
+        b_{0} & b_{n - 2}
+      \end{vmatrix}
+                      & c_{n - 3} & \cdots & c_0 & & \arraybackslash\\
+      \hline
+      c_0 & c_1 & c_2 & \cdots & c_{n - 2} & & \arraybackslash\\
+      \hline
+      \vdots & \vdots & \vdots & \vdots & \vdots & & \arraybackslash\\
+      \hline
+      q_2 & q_1 & q_0 & & & &\\
+      \hline
+  \end{tabular}
+\end{table}
+
+当$D(1) > 0$，$(-1)^nD(-1) > 0$，且奇数行首列元素大于该行末项元素的绝对值时，$D(w) = 0$的根全部在单位圆内。
+
+\end{document}

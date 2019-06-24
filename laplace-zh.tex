@@ -1,0 +1,110 @@
+\documentclass[b5paper,10pt,UTF8]{ctexart}
+
+\usepackage[left=1.27cm,right=1.27cm,top=1.52cm,bottom=1.27cm]{geometry}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{array}
+\usepackage{fancyhdr}
+\usepackage{caption}
+\usepackage{multirow}
+
+\pagestyle{fancy}
+
+\lhead{}
+\chead{单边拉普拉斯变换}
+\rhead{}
+\lfoot{\copyright Frimaire 2019}
+\cfoot{}
+\rfoot{CC BY} 
+\renewcommand\arraystretch{1}
+\newcommand{\dqcoll}[1]{\multicolumn{2}{|>{\(\displaystyle{}}c<{\)}||}{#1}}
+\newcommand{\dqcolr}[1]{\multicolumn{2}{>{\(\displaystyle{}}c<{\)}|}{#1}}
+\newcommand{\tmath}[1]{\(\displaystyle{} #1\)}
+\setlength{\textfloatsep}{1pt}
+
+\begin{document}
+\begin{table}
+  \centering
+  \begin{tabular}{|>{\centering\(\displaystyle{}}p{0.25\textwidth}<{\)}|>{\centering\(\displaystyle{}}p{0.20\textwidth}<{\)}||>{\centering\(\displaystyle{}}p{0.25\textwidth}<{\)}|>{\centering\(\displaystyle{}}p{0.20\textwidth}<{\)}|}
+    %Command "centering" will redefine the doublebackslash, which makes command "arraybackslash" essential.
+    \hline
+    f(t) & F(s) & f(t) & F(s) \arraybackslash\\
+    \hline
+    \frac{1}{2\pi{}j}\int_{\sigma-j\infty}^{\sigma+j\infty}F(s)e^{st}\mathrm{d}s & \int_{0^{-}}^{\infty}f(t)e^{-st}\mathrm{d}t & \delta{}(t) & 1 \arraybackslash\\
+    \hline
+    a f_1(t) + b f_2(t) & a F_1(s) + b F_2 (s) & \sum_{n = 0}^{\infty}\delta(t - nT) & \frac{1}{1 - e^{-Ts}} \arraybackslash\\
+    \hline
+    f(t - t_0) & e^{-t_0s}F(s) & u(t) & \frac{1}{s} \arraybackslash\\
+    \hline
+    e^{s_0t}f(t) & F(s - s_0) & \frac{t^{n - 1}}{(n - 1)!}u(t) & \frac{1}{s^n} \arraybackslash\\
+    \hline
+    f(at)\quad a > 0 & \frac{1}{a}F(\frac{s}{a}) & e^{-at}u(t) & \frac{1}{s + a} \arraybackslash\\
+    \hline
+    \frac{\mathrm{d}}{\mathrm{d}t}f(t) & sF(s)-f(0^-) & \frac{t^{n - 1}}{(n - 1)!} e ^ {-at} u(t) & \frac{1}{(s + a) ^ n} \arraybackslash\\
+    \hline
+    -tf(t) & \frac{\mathrm{d}}{\mathrm{d}s}F(s) & \cos(\omega_0t) u(t) & \frac{s}{s^2 + \omega_0^2} \arraybackslash\\
+    \hline
+    f_1(t) * f_2(t) & F_1(s)F_2(s) & \sin(\omega_0t) u(t) & \frac{\omega_0}{s^2 + \omega_0^2} \arraybackslash\\
+    \hline
+    \frac{1}{t} f(t) & \int_{s}^{\infty}f(\sigma)\mathrm{d}\sigma & e^{-at} \cos(\omega_0t) u(t) & \frac{s + a}{(s + a)^2 + \omega_0^2} \arraybackslash\\
+    \hline
+    \int_{0^-}^{t}f(\tau)\mathrm{d}\tau & \frac{1}{s}F(s) & e^{-at} \sin(\omega_0t) u(t) & \frac{\omega_0}{(s + a)^2 + \omega_0^2} \arraybackslash\\
+    \hline
+    \dqcoll{f(0^+) = \lim_{s \to \infty}sF(s)} & \dqcolr{f(+\infty) = \lim_{s \to 0}sF(s)} \arraybackslash\\
+    \hline
+  \end{tabular}
+\end{table}
+
+\paragraph{真分式的部分分式展开}
+
+\begin{displaymath}
+F(s) = \frac{b_{n - 1}s^{n - 1}+\cdots+b_1s+b_0}{(s - \rho_1)^{\sigma_1}(s - \rho_2)^{\sigma_2}\cdots(s - \rho_r)^{\sigma_r}} = \sum_{n = 1}^{r}\sum_{m = 1}^{\sigma_n}\frac{A_{nm}}{(s - \rho_n)^m}
+\end{displaymath}
+
+\begin{displaymath}
+A_{nm} = \frac{1}{(\sigma_n - m)!}\cdot\frac{\mathrm{d}^{\sigma_n - m}}{\mathrm{d}s^{\sigma_n - m}}((s - \rho_n)^{\sigma_n}F(s))|_{s = \rho_n}
+\end{displaymath}
+
+\paragraph{劳斯–赫尔维茨判据}
+
+\begin{displaymath}
+  D(s) = a_ns^n + a_{n - 1}s^{n - 1} + \cdots + a_2s^2 + a_1s + a_0
+\end{displaymath}
+
+
+\begin{table}[h]
+  \centering
+    \begin{tabular}{|>{\(\displaystyle{}}c<{\)}|>{\(\displaystyle{}}c<{\)}|>{\(\displaystyle{}}c<{\)}|>{\(\displaystyle{}}c<{\)}|>{\(\displaystyle{}}c<{\)}|}
+      \hline
+      s^n & a_n & a_{n - 2} & a_{n - 4} & \cdots \\
+      \hline
+      s^{n - 1} & a_{n - 1} & a_{n - 3} & a_{n - 5} & \cdots \\
+      \hline
+      s^{n - 2} & b_1 = -\frac{1}{a_{n - 1}}\begin{vmatrix}
+                  a_n & a_{n - 2} \\
+                  a_{n - 1} & a_{n - 3}
+                \end{vmatrix} & b_2 = -\frac{1}{a_{n - 1}}\begin{vmatrix}
+                  a_{n} & a_{n - 4} \\
+                  a_{n - 1} & a_{n - 5}
+                \end{vmatrix} & b_3 & \cdots \\
+      \hline
+      s^{n - 3} & c_1 = -\frac{1}{b_1}\begin{vmatrix}
+                  a_{n - 1} & a_{n - 3} \\
+                  b_1 & b_2
+                \end{vmatrix} & c_2 = -\frac{1}{b_1}\begin{vmatrix}
+                  a_{n - 1} & a_{n - 5} \\
+                  b_1 & b_3
+                \end{vmatrix} & c_3 & \cdots \\
+      \hline
+      \vdots & \vdots & \vdots & \vdots & \vdots \\
+      \hline
+      s^0 & a_0 & & & \\
+      \hline
+  \end{tabular}
+\end{table}
+
+当$a_n > 0$时，$D(s) = 0$的根全部落在左半平面的充要条件是$a_k > 0$且如上劳斯表中的第一列均大于零。不然，第一列符号改变次数就是落在右半平面的根的个数。
+
+若第一列为零，可用$\epsilon$代替，排完劳斯表再令$\epsilon\to{}0$。若一行全为零，则存在纯虚根，可用上一行作为辅助多项式的系数（注意各列间相差二次），求导后的各系数作为本行，继续计算。
+
+\end{document}
